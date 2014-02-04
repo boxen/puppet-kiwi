@@ -7,9 +7,7 @@ Install the Kiwi Xcode template with Boxen.
 ## Usage
 
 ```puppet
-boxen::example { 'best example ever':
-  salutation => 'fam'
-}
+include kiwi
 ```
 
 ## Required Puppet Modules
