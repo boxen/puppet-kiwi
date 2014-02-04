@@ -6,14 +6,22 @@
 class kiwi {
 
     $path = '/tmp/kiwi'
-    $install_file = "${path}/Xcode Templates/install-templates.sh"
 
     repository { $path:
         source   => 'allending/Kiwi',
         provider => 'git';
     }
 
-    exec { $install_file:
-        require => File[$install_file],
+    exec { 'install':
+        require => Repository[$path],
+        cwd     => '/tmp/kiwi/Xcode Templates',
+        command => '/bin/bash install-templates.sh',
+        before  => File['clean up'],
+    }
+
+    file { 'clean up':
+        ensure  => absent,
+        path    => $path,
+        force   => true,
     }
 }

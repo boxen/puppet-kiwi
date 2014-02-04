@@ -11,6 +11,17 @@ describe 'kiwi' do
   end
 
   it do
-    should contain_exec("/tmp/kiwi/Xcode Templates/install-templates.sh")
+    should contain_exec("install").with({
+        "command" => "/bin/bash install-templates.sh",
+        "cwd" => "/tmp/kiwi/Xcode Templates"
+    })
+  end
+
+  it do
+    should contain_file("clean up").with({
+        'path' => '/tmp/kiwi',
+        'ensure' => "absent",
+        'force' => 'true',
+    })
   end
 end
